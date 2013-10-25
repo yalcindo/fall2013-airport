@@ -1,0 +1,28 @@
+extends layout
+
+block content
+	h1 Welcome to #{airport.city}!
+
+	h2 Planes
+	ul
+		for plane in airport.planes
+			- var avail = plane.seats - plane.passengers.length;
+			li #{plane.name} (#{avail}/#{plane.seats} seats available)
+
+	h2 Travelers
+	ul
+		for passenger in airport.travelers
+			li #{passenger.name} is traveling to #{passenger.destination.city}.
+
+	h3 Boarding
+	form(method='post', action='/board')
+		input(type='hidden', name='origin', value=airport.code)
+		select(name='plane')
+			for plane in airport.planes
+				option(value=plane.id) #{plane.name} (#{plane.id})
+		select(name='destination')
+			for dest in airports
+				if dest.code != airport.code
+					option(value=dest.code) #{dest.city}
+		input(type='submit')
+
