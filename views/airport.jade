@@ -11,9 +11,11 @@ block content
 
 	h2 Travelers
 	ul
+		// Loops through all the passenger objects in the travelers array of this airport
+		// Destination is an instance of an airport that has the city property
 		for passenger in airport.travelers
 			li #{passenger.name} is traveling to #{passenger.destination.city}.
-
+    
 	h3 Boarding
 	form(method='post', action='/board')
 		input(type='hidden', name='origin', value=airport.code)

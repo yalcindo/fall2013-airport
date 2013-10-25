@@ -78,7 +78,7 @@ function setup() {
 app.get('/airport/:code', function(req, res) {
 	var airportCode = req.params.code;
 	var airport = airports[airportCode];
-
+ 
 	if(airport) {
 
 		// res.send('The airport city is ' + airport.city);
@@ -98,6 +98,8 @@ app.post('/board', function(req, res) {
 
 	// 1. get the airport object of the origin
 	// 2. get the airport object of the destination
+
+	//Doing a lookup by key for the airport object based on origin and destination code from the Jade file
 	var origin = airports[req.body.origin];
 	var destination = airports[req.body.destination];
 
@@ -108,6 +110,7 @@ app.post('/board', function(req, res) {
 	var allPassengers = origin.travelers;
 
 	// 5. of those passengers, get those going to the destination
+	// 2nd destination is the same as var on line 102 (destination is an aiport obj)
 	var destPassengers = _.where(allPassengers, { destination: destination })
 
 	var passengersBoarded = 0;
@@ -136,6 +139,14 @@ app.post('/board', function(req, res) {
 
 	res.send(passengersBoarded + ' passengers boarded to ' + destination.city + '!')
 })
+ app.get("/",function(req,res){
+  
+  res.render("index",{
+  	                title:"RefactorU Airlines",
+                    airports: airports
+	             
+			         });
+ });
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -1,5 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h1= title
+	p Welcome to #{title}
+
+	h3 Boarding
+	form#dropdown-form(method='get', action='/')
+		select#dest-list(name='destination')
+			for dest in airports
+				option(value=dest.code) #{dest.city}
+		input#submit-btn(type='submit')
+
+
